@@ -1,0 +1,34 @@
+.notification-bar {
+    z-index: 1001;
+    position: relative;
+    width: 100%;
+    background: #000;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.notification-bar.display_top {
+    top: 0;
+    position: absolute;
+}
+
+.notification-bar.display_bottom {
+    bottom: 0;
+    position: relative;
+}
+
+.notification-text {
+    padding: 10px
+}
+
+.admin-bar .notification-bar.display_top {
+    top: 46px;
+}
+
+@media screen and (min-width: 783px) {
+
+    .admin-bar .notification-bar.display_top {
+        top: 32px;
+    }
+
+}

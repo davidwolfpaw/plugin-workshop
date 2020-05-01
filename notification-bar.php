@@ -90,23 +90,6 @@ function wnb_initialize_settings() {
 			),
 		)
 	);
-	add_settings_field(
-		'display_sticky',
-		__( 'Will the notificaton bar be sticky?', 'notification-bar' ),
-		'radio_input_callback',
-		'wnb_general_settings',
-		'general_section',
-		array(
-			'label_for'          => 'display_sticky',
-			'option_group'       => 'nb_general_settings',
-			'option_id'          => 'display_sticky',
-			'option_description' => 'Make display sticky or not',
-			'radio_options'      => array(
-				'display_sticky'   => 'Make the notification bar sticky',
-				'display_relative' => 'Do not make the notification bar sticky',
-			),
-		)
-	);
 	register_setting(
 		'wnb_general_settings',
 		'nb_general_settings'
@@ -164,9 +147,22 @@ function wnb_display_notification_bar() {
 	if ( null !== get_option( 'nb_general_settings' ) ) {
 		$options = get_option( 'nb_general_settings' );
 		?>
-		<div class="notification-bar <?php echo $options['display_location']; ?> <?php echo get_theme_mod( 'display_sticky' ); ?>">
+		<div class="notification-bar <?php echo $options['display_location']; ?>">
 			<div class="notification-text"><?php echo $options['notification_text']; ?></div>
 		</div>
 		<?php
 	}
+}
+
+/**
+ * Loads plugin scripts and styles
+ */
+add_action( 'wp_enqueue_scripts', 'wnb_scripts' );
+function wnb_scripts() {
+	wp_enqueue_style(
+		'notification-bar-css',
+		plugin_dir_url( __FILE__ ) . 'notification-bar.css',
+		array(),
+		'1.0.0'
+	);
 }
