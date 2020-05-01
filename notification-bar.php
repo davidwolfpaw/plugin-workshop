@@ -48,3 +48,67 @@ function wnb_render_settings_page() {
 	</div><!-- /.wrap -->
 	<?php
 }
+
+/**
+ * Creates settings for the plugin
+ */
+add_action( 'admin_init', 'wnb_initialize_settings' );
+function wnb_initialize_settings() {
+	add_settings_section(
+		'general_section',                                  // ID used to identify this section and with which to register options
+		__( 'General Settings', 'notification-bar' ),   	// Title to be displayed on the administration page
+		'general_settings_callback',                        // Callback used to render the description of the section
+		'wnb_general_settings'                              // Page on which to add this section of options
+	);
+	add_settings_field(
+		'notification_text',                                // ID used to identify this field
+		__( 'Notification Text', 'notification-bar' ),  	// Title to be displayed for this field
+		'text_input_callback',                              // The function that creates this field
+		'wnb_general_settings',                             // The page that this setting goes under
+		'general_section',                                  // The section that this setting goes under
+		array(                                              // Arguments that describe this field
+			'label_for'    => 'notification_text',
+			'option_group' => 'nb_general_settings',
+			'option_id'    => 'notification_text',
+		)
+	);
+	add_settings_field(
+		'display_location',
+		__( 'Where will the notification bar display?', 'notification-bar' ),
+		'radio_input_callback',
+		'wnb_general_settings',
+		'general_section',
+		array(
+			'label_for'          => 'display_location',
+			'option_group'       => 'nb_general_settings',
+			'option_id'          => 'display_location',
+			'option_description' => 'Display notification bar on bottom of the site',
+			'radio_options'      => array(
+				'display_none'   => 'Do not display notification bar',
+				'display_top'    => 'Display notification bar on the top of the site',
+				'display_bottom' => 'Display notification bar on the bottom of the site',
+			),
+		)
+	);
+	add_settings_field(
+		'display_sticky',
+		__( 'Will the notificaton bar be sticky?', 'notification-bar' ),
+		'radio_input_callback',
+		'wnb_general_settings',
+		'general_section',
+		array(
+			'label_for'          => 'display_sticky',
+			'option_group'       => 'nb_general_settings',
+			'option_id'          => 'display_sticky',
+			'option_description' => 'Make display sticky or not',
+			'radio_options'      => array(
+				'display_sticky'   => 'Make the notification bar sticky',
+				'display_relative' => 'Do not make the notification bar sticky',
+			),
+		)
+	);
+	register_setting(
+		'wnb_general_settings',
+		'nb_general_settings'
+	);
+}
