@@ -155,3 +155,18 @@ function radio_input_callback( $radio_input ) {
 	}
 	echo $input;
 }
+
+/**
+ * Displays the notification bar on the frontend of the site
+ */
+add_action( 'wp_footer', 'wnb_display_notification_bar' );
+function wnb_display_notification_bar() {
+	if ( null !== get_option( 'nb_general_settings' ) ) {
+		$options = get_option( 'nb_general_settings' );
+		?>
+		<div class="notification-bar <?php echo $options['display_location']; ?> <?php echo get_theme_mod( 'display_sticky' ); ?>">
+			<div class="notification-text"><?php echo $options['notification_text']; ?></div>
+		</div>
+		<?php
+	}
+}
