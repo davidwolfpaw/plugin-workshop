@@ -17,6 +17,15 @@
     position: relative;
 }
 
+.notification-bar.display_top.display_sticky {
+    position: fixed;
+}
+
+.notification-bar.display_bottom.display_sticky {
+    bottom: 0;
+    position: sticky;
+}
+
 .notification-text {
     padding: 10px
 }
