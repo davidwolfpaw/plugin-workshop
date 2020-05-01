@@ -112,3 +112,10 @@ function wnb_initialize_settings() {
 		'nb_general_settings'
 	);
 }
+
+/**
+ * Displays the header of the general settings
+ */
+function general_settings_callback() {
+	esc_html_e( 'Notification Bar Settings', 'notification-bar' );
+}
