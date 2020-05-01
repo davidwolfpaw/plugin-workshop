@@ -22,3 +22,29 @@ function wnb_general_settings_page() {
 		'wnb_render_settings_page'
 	);
 }
+
+/**
+ * Creates the settings page
+ */
+function wnb_render_settings_page() {
+	?>
+	<!-- Create a header in the default WordPress 'wrap' container -->
+	<div class="wrap">
+
+		<h2><?php esc_html_e( 'Notification Bar Settings', 'notification-bar' ); ?></h2>
+
+		<form method="post" action="options.php">
+
+			<?php
+			// Get settings for the plugin to display in the form
+			settings_fields( 'wnb_general_settings' );
+			do_settings_sections( 'wnb_general_settings' );
+			// Form submit button
+			submit_button();
+			?>
+
+		</form>
+
+	</div><!-- /.wrap -->
+	<?php
+}
