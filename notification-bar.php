@@ -164,8 +164,8 @@ function wnb_display_notification_bar() {
 	if ( null !== get_option( 'nb_general_settings' ) ) {
 		$options = get_option( 'nb_general_settings' );
 		?>
-		<div class="notification-bar <?php echo $options['display_location']; ?> <?php echo $options['display_sticky']; ?>">
-			<div class="notification-text"><?php echo $options['notification_text']; ?></div>
+		<div class="notification-bar <?php echo get_theme_mod( 'display_location' ); ?> <?php echo get_theme_mod( 'display_sticky' ); ?>">
+			<div class="notification-text"><?php echo get_theme_mod( 'notification_text' ); ?></div>
 		</div>
 		<?php
 	}
@@ -181,5 +181,76 @@ function wnb_scripts() {
 		plugin_dir_url( __FILE__ ) . 'notification-bar.css',
 		array(),
 		'1.0.0'
+	);
+}
+
+
+/**
+ * Bonus: Adds Customizer Features
+ */
+add_action( 'customize_register', 'wnb_customize_register' );
+function wnb_customize_register( WP_Customize_Manager $wp_customize ) {
+	$wp_customize->add_section(
+		'notification_bar',
+		array(
+			'title' => __( 'Notification Bar', 'notification-bar' ),
+		)
+	);
+	$wp_customize->add_setting(
+		'display_location',
+		array(
+			'capability' => 'edit_theme_options',
+			'default'    => 'display_none',
+		)
+	);
+	$wp_customize->add_control(
+		'display_location',
+		array(
+			'type'        => 'radio',
+			'section'     => 'notification_bar', // Add a default or your own section
+			'label'       => __( 'Display Location' ),
+			'description' => __( 'Choose where the notification bar is displayed' ),
+			'choices'     => array(
+				'display_none'   => __( 'Do not display notification bar', 'notification-bar' ),
+				'display_top'    => __( 'Display notification bar on the top of the site', 'notification-bar' ),
+				'display_bottom' => __( 'Display notification bar on the bottom of the site', 'notification-bar' ),
+			),
+		)
+	);
+	$wp_customize->add_setting(
+		'display_sticky',
+		array(
+			'capability' => 'edit_theme_options',
+			'default'    => 'display_sticky',
+		)
+	);
+	$wp_customize->add_control(
+		'display_sticky',
+		array(
+			'type'        => 'radio',
+			'section'     => 'notification_bar', // Add a default or your own section
+			'label'       => __( 'Sticky Display' ),
+			'description' => __( 'Will the notificaton bar be sticky?' ),
+			'choices'     => array(
+				'display_sticky'   => __( 'Make the notification bar sticky', 'notification-bar' ),
+				'display_relative' => __( 'Do not make the notification bar sticky', 'notification-bar' ),
+			),
+		)
+	);
+	$wp_customize->add_setting(
+		'notification_text',
+		array(
+			'capability' => 'edit_theme_options',
+			'default'    => '',
+		)
+	);
+	$wp_customize->add_control(
+		'notification_text',
+		array(
+			'type'        => 'textarea',
+			'section'     => 'notification_bar',
+			'label'       => __( 'Custom Text Area' ),
+			'description' => __( 'This is a custom textarea.' ),
+		)
 	);
 }
