@@ -29,8 +29,6 @@ Follow along with the [first commit](https://github.com/davidwolfpaw/plugin-work
 
 Visit the [WordPress Developer Plugin Handbook](https://developer.wordpress.org/plugins/) to get more details on starting your own plugin.
 
-Thank you to SiteGround for helping me make this workshop possible! Visit [https://www.siteground.com/go/wcmia2019](https://www.siteground.com/go/wcmia2019) to get a discount on shared WordPress hosting!
-
 
 ## Installation
 
