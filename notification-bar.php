@@ -119,3 +119,39 @@ function wnb_initialize_settings() {
 function general_settings_callback() {
 	esc_html_e( 'Notification Bar Settings', 'notification-bar' );
 }
+
+/**
+ * Text Input Callbacks
+ */
+function text_input_callback( $text_input ) {
+	// Get arguments from setting
+	$option_group = $text_input['option_group'];
+	$option_id    = $text_input['option_id'];
+	$option_name  = "{$option_group}[{$option_id}]";
+	// Get existing option from database
+	$options      = get_option( $option_group );
+	$option_value = isset( $options[ $option_id ] ) ? $options[ $option_id ] : '';
+	// Render the output
+	echo "<input type='text' size='50' id='{$option_id}' name='{$option_name}' value='{$option_value}' />";
+}
+
+/**
+ * Radio Input Callbacks
+ */
+function radio_input_callback( $radio_input ) {
+	// Get arguments from setting
+	$option_group  = $radio_input['option_group'];
+	$option_id     = $radio_input['option_id'];
+	$radio_options = $radio_input['radio_options'];
+	$option_name   = "{$option_group}[{$option_id}]";
+	// Get existing option from database
+	$options      = get_option( $option_group );
+	$option_value = isset( $options[ $option_id ] ) ? $options[ $option_id ] : '';
+	// Render the output
+	$input = '';
+	foreach ( $radio_options as $radio_option_id => $radio_option_value ) {
+		$input .= "<input type='radio' id='{$radio_option_id}' name='{$option_name}' value='{$radio_option_id}' " . checked( $radio_option_id, $option_value, false ) . ' />';
+		$input .= "<label for='{$radio_option_id}'>{$radio_option_value}</label><br />";
+	}
+	echo $input;
+}
